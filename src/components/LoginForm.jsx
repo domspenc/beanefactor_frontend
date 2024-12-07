@@ -1,7 +1,7 @@
 // LOGIN FORM WITH ZOD
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import z from "zod";
 
 import postLogin from "../api/post-login.js";
@@ -48,27 +48,32 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          placeholder="Enter username"
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter username"
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <p>
+        Don't have an account? <Link to="/signup">Sign Up</Link>
+      </p>
+    </div>
   );
 }
 

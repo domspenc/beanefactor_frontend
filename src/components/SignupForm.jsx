@@ -49,14 +49,20 @@ function SignupForm() {
       }
       return;
     } else {
-      postSignup(
-        result.data.username,
-        result.data.email,
-        result.data.password
-      ).then((response) => {
-        alert("Signup successful!");
-        navigate("/login"); // Redirect to login page after successful signup
-      });
+      postSignup(result.data.username, result.data.email, result.data.password)
+        .then((response) => {
+          alert("Signup successful!");
+
+          // Store token and other user data to keep the user logged in
+          window.localStorage.setItem("token", response.token);
+          window.localStorage.setItem("user_id", response.user_id);
+
+          // Redirect user to the homepage
+          navigate("/");
+        })
+        .catch((error) => {
+          alert(error.message); // Show any signup errors
+        });
     }
   };
 
@@ -68,7 +74,7 @@ function SignupForm() {
           type="text"
           id="username"
           placeholder="Enter username"
-          value={formData.username}
+          value={signupCredentials.username}
           onChange={handleChange}
         />
       </div>
@@ -78,7 +84,7 @@ function SignupForm() {
           type="email"
           id="email"
           placeholder="Enter email"
-          value={formData.email}
+          value={signupCredentials.email}
           onChange={handleChange}
         />
       </div>
@@ -88,7 +94,7 @@ function SignupForm() {
           type="password"
           id="password"
           placeholder="Enter password"
-          value={formData.password}
+          value={signupCredentials.password}
           onChange={handleChange}
         />
       </div>
@@ -98,7 +104,7 @@ function SignupForm() {
           type="password"
           id="confirmPassword"
           placeholder="Confirm password"
-          value={formData.confirmPassword}
+          value={signupCredentials.confirmPassword}
           onChange={handleChange}
         />
       </div>

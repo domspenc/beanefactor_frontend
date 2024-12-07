@@ -1,1 +1,23 @@
 deployed website url = https://beanefactor.netlify.app/
+
+users:
+
+domspenc
+domloves@dogs.com
+WoofWoof33
+
+doggo1
+doggo1@beanefactor.com
+DoggoOne1
+
+doggo2
+doggo2@beanefactor.com
+DoggoTwo2
+
+doggo3
+doggo3@beanefactor.com
+DoggoThree3
+
+
+- a way for a logged in user to pledge treats towards a project (including depleting their personal treat availability when they do so)
+- a user profile page that includes information like name, available treats, projects they created, projects they've pledged towards, a way to make changes to things like project descriptions, add images to projects, etc, and potentially location

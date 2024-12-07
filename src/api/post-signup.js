@@ -1,5 +1,5 @@
 async function postSignup(username, email, password) {
-  const url = `${import.meta.env.VITE_API_URL}/dogusers/signup`;
+  const url = `${import.meta.env.VITE_API_URL}/dogusers/signup/`;
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -23,7 +23,12 @@ async function postSignup(username, email, password) {
     throw new Error(errorMessage);
   }
 
-  return await response.json();
+  // Save the token and other relevant data to localStorage
+  const data = await response.json();
+  window.localStorage.setItem("token", data.token); // Store the token
+  window.localStorage.setItem("user_id", data.user_id); // Store the user ID
+
+  return data; // Return the response data
 }
 
 export default postSignup;
