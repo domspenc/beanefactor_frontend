@@ -15,16 +15,16 @@ const loginSchema = z.object({
 
 function LoginForm() {
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState({
+  const [loginCredentials, setLoginCredentials] = useState({
     username: "",
     password: "",
   });
 
   const handleChange = (event) => {
     const { id, value } = event.target;
-    setCredentials((prevCredentials) => {
+    setLoginCredentials((prevLoginCredentials) => {
       return {
-        ...prevCredentials,
+        ...prevLoginCredentials,
         [id]: value,
       };
     });
@@ -32,7 +32,7 @@ function LoginForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const result = loginSchema.safeParse(credentials);
+    const result = loginSchema.safeParse(loginCredentials);
     if (!result.success) {
       const error = result.error.errors?.[0];
       if (error) {
