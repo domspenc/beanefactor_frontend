@@ -1,5 +1,7 @@
 deployed website url = https://beanefactor.netlify.app/
 
+image url: https://github.com/domspenc/crowdfunding_backend/blob/main/resources/beanefactor_test_logo.jpg
+
 users:
 
 domspenc

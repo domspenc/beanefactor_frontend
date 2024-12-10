@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import postProject from "../api/post-project.js"; // API call to create the project
+import postProject from "../api/post-project.js";
 
 // Zod schema for project validation
 const projectSchema = z.object({
@@ -14,13 +14,23 @@ const projectSchema = z.object({
 });
 
 function CreateProjectForm() {
-  const navigate = useNavigate();
+  const [categories, setCategories] = useState([]); // State to store categories
   const [projectFormData, setProjectFormData] = useState({
     title: "",
     description: "",
     treat_target: "",
     image: "", // Optional field
+    categories: [], // Array to hold selected categories
   });
+  const navigate = useNavigate();
+
+  // Fetch categories from backend when the component mounts
+  useEffect(() => {
+    fetch("https://beanefactor-97bb03940ca5.herokuapp.com/categories/")
+      .then((response) => response.json())
+      .then((data) => setCategories(data)) // Save categories to state
+      .catch((error) => console.error("Error fetching categories:", error));
+  }, []);
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -30,13 +40,23 @@ function CreateProjectForm() {
     }));
   };
 
+  const handleCategoryChange = (event) => {
+    const { options } = event.target;
+    const selectedCategories = Array.from(options)
+      .filter((option) => option.selected)
+      .map((option) => option.value);
+    setProjectFormData((prevData) => ({
+      ...prevData,
+      categories: selectedCategories,
+    }));
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Prepare data to send, remove image if empty
     const projectData = {
       ...projectFormData,
-      treat_target: parseInt(projectFormData.treat_target, 10), // Convert to number
+      treat_target: parseInt(projectFormData.treat_target, 10),
     };
 
     // If image is empty, remove it from the request
@@ -111,6 +131,21 @@ function CreateProjectForm() {
           value={projectFormData.image}
           onChange={handleChange}
         />
+      </div>
+      <div>
+        <label htmlFor="categories">Categories:</label>
+        <select
+          id="categories"
+          multiple
+          value={projectFormData.categories}
+          onChange={handleCategoryChange}
+        >
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </div>
       <button type="submit">Create Project</button>
     </form>
