@@ -16,7 +16,7 @@ const loginSchema = z.object({
 
 function LoginForm() {
   const navigate = useNavigate();
-  // const { auth, setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [loginCredentials, setLoginCredentials] = useState({
     username: "",
     password: "",
