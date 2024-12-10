@@ -3,6 +3,9 @@ import useAuth from "../hooks/use-auth.js";
 
 function NavBar() {
   const { auth, setAuth } = useAuth();
+
+  // console.log("Auth State in Navbar:", auth);
+
   const handleLogout = () => {
     window.localStorage.removeItem("token");
     setAuth({ token: null });

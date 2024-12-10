@@ -11,6 +11,8 @@ export const AuthProvider = (props) => {
     token: window.localStorage.getItem("token"),
   });
 
+  //   console.log("Auth State in Provider:", auth);
+
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {props.children}

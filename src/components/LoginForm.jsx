@@ -17,6 +17,9 @@ const loginSchema = z.object({
 function LoginForm() {
   const navigate = useNavigate();
   const { auth, setAuth } = useAuth();
+
+  // console.log("Auth State in LoginForm before login:", auth);
+
   const [loginCredentials, setLoginCredentials] = useState({
     username: "",
     password: "",
