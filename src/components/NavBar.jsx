@@ -12,7 +12,7 @@ function NavBar() {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
-        <Link to="/login">Log In</Link>
+        {/* <Link to="/login">Log In</Link> */}
         {auth.token ? (
           <Link to="/" onClick={handleLogout}>
             Log Out
