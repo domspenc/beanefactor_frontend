@@ -64,7 +64,6 @@ function CreateProjectForm() {
       delete projectData.image;
     }
 
-    console.log("Data to send:", projectData);
     const result = projectSchema.safeParse(projectData);
 
     if (!result.success) {
