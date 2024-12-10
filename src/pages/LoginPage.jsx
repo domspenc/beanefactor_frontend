@@ -1,8 +1,12 @@
 import LoginForm from "../components/LoginForm";
-import "./loginpage.css";
+import "../styles/loginpage.css";
 
 function LoginPage() {
-  return <LoginForm />;
+  return (
+    <div className="login-page">
+      <LoginForm />
+    </div>
+  );
 }
 
 export default LoginPage;

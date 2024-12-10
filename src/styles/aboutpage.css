@@ -1,0 +1,36 @@
+/* About Page Styles */
+.about-page {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f4f4f4;
+}
+
+.about-page h1 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.about-page p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.about-image img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile-first */
+@media (min-width: 768px) {
+  .about-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .about-image {
+    margin-left: 20px;
+  }
+}

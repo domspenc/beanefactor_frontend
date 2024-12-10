@@ -1,5 +1,5 @@
 import CreateProjectForm from "../components/CreateProjectForm";
-import "./createproject.css";
+import "../styles/createproject.css";
 
 function CreateProjectPage() {
   return <CreateProjectForm />;

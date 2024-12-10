@@ -1,44 +1,38 @@
-/* Create Project Page Styles */
-.create-project-page {
-  padding: 2rem;
-  background-color: #f9f9f9;
-}
-
-.create-project-page h1 {
-  text-align: center;
-  color: #333;
-  font-size: 2rem;
-  margin-bottom: 1rem;
+/* Signup Page Styles */
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f7f7;
 }
 
 form {
-  background-color: #fff;
+  background-color: white;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
 }
 
 form label {
-  display: block;
-  margin-bottom: 8px;
   font-size: 1rem;
-  color: #333;
+  margin-bottom: 8px;
 }
 
-form input,
-form select,
-form textarea {
+form input {
   width: 100%;
   padding: 10px;
   margin-bottom: 1rem;
-  border-radius: 5px;
   border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 form button {
   background-color: #eee272;
-  color: white;
   padding: 10px;
+  color: white;
   border: none;
   border-radius: 5px;
   width: 100%;
