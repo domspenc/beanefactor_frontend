@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import z from "zod";
 
 import postLogin from "../api/post-login.js";
+import useAuth from "../hooks/use-auth.js";
 
 const loginSchema = z.object({
   username: z.string().min(1, { message: "Username must not be empty" }),
@@ -15,6 +16,7 @@ const loginSchema = z.object({
 
 function LoginForm() {
   const navigate = useNavigate();
+  const { auth, setAuth } = useAuth();
   const [loginCredentials, setLoginCredentials] = useState({
     username: "",
     password: "",
@@ -42,6 +44,9 @@ function LoginForm() {
     } else {
       postLogin(result.data.username, result.data.password).then((response) => {
         window.localStorage.setItem("token", response.token);
+        setAuth({
+          token: response.token,
+        });
         navigate("/");
       });
     }
