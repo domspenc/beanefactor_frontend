@@ -1,38 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./styles/global.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./styles/global.css"; // Global styles
 
 import HomePage from "./pages/HomePage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import ProjectPage from "./pages/ProjectPage.jsx";
+import ProjectDetailPage from "./pages/ProjectDetailPage.jsx";
 import CreateProjectPage from "./pages/CreateProjectPage.jsx";
 
 import NavBar from "./components/NavBar.jsx";
 import { AuthProvider } from "./components/AuthProvider.jsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <NavBar />,
-    children: [
-      { path: "/", element: <HomePage /> },
-      { path: "/about", element: <AboutPage /> },
-      { path: "/login", element: <LoginPage /> },
-      { path: "/signup", element: <SignupPage /> },
-      { path: "/project/:id", element: <ProjectPage /> },
-      { path: "/projects/", element: <CreateProjectPage /> },
-    ],
-  },
-]);
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      {/* Here we wrap our app in the router provider so they render */}
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <NavBar /> {/* Navigation Bar is always shown */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/projects" element={<ProjectPage />} />
+          <Route path="/project/:id" element={<ProjectDetailPage />} />
+          <Route path="/projects/create" element={<CreateProjectPage />} />
+          <Route path="/treatpledges" element={<ProjectDetailPage />} />
+        </Routes>
+      </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
 );

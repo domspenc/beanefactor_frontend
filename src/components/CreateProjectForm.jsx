@@ -59,7 +59,6 @@ function CreateProjectForm() {
       treat_target: parseInt(projectFormData.treat_target, 10),
     };
 
-    // If image is empty, remove it from the request
     if (projectFormData.image === "") {
       delete projectData.image;
     }
@@ -68,25 +67,23 @@ function CreateProjectForm() {
 
     if (!result.success) {
       const error = result.error.errors?.[0];
-      if (error) {
-        alert(error.message);
-      }
-      return;
-    } else {
-      const token = window.localStorage.getItem("token");
-      if (!token) {
-        alert("You must be logged in to create a project!");
-        navigate("/login");
-        return;
-      }
+      alert(error.message); // Show error to user
+      return; // Stop the form submission
+    }
 
-      try {
-        await postProject(result.data, token);
-        alert("Project created successfully!");
-        navigate("/"); // Redirect to home page
-      } catch (error) {
-        alert(error.message); // Handle project creation errors
-      }
+    const token = window.localStorage.getItem("token");
+    if (!token) {
+      alert("You must be logged in to create a project!");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      await postProject(result.data, token);
+      alert("Project created successfully!");
+      navigate("/"); // Redirect to home page
+    } catch (error) {
+      alert(error.message); // Handle project creation errors
     }
   };
 
