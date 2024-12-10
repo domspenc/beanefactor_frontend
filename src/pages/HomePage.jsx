@@ -1,6 +1,6 @@
 import useProjects from "../hooks/use-projects";
 import ProjectCard from "../components/ProjectCard";
-import "./styles/homepage.css";
+import "./homepage.css";
 
 function HomePage() {
   const { projects } = useProjects();
