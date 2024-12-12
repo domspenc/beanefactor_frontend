@@ -1,103 +1,68 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import useAuth from "../hooks/use-auth.js"; // To check if user is logged in
-import "../styles/projectpage.css"; // Optional: Add styling if needed
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/projectpage.css"; // CSS for project listing
 
 function ProjectPage() {
-  const { projectId } = useParams(); // Get project ID from URL
-  const { auth } = useAuth();
   const navigate = useNavigate();
 
-  const [pledgeAmount, setPledgeAmount] = useState(0);
-  const [comment, setComment] = useState("");
-  const [anonymous, setAnonymous] = useState(false);
+  const [projects, setProjects] = useState([]); // To store the list of projects
   const [error, setError] = useState(null);
 
-  const handlePledgeSubmit = (event) => {
-    event.preventDefault();
-
-    // If the user is not logged in, navigate to login
-    if (!auth.token) {
-      navigate("/login", { state: { redirectTo: `/project/${projectId}` } });
-      return;
-    }
-
-    // Send the pledge request to the backend
-    const pledgeData = {
-      treats_pledged: pledgeAmount,
-      comment: comment,
-      anonymous: anonymous,
-      project: projectId,
-    };
-
-    fetch("https://beanefactor-97bb03940ca5.herokuapp.com/treatpledges/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${auth.token}`, // Include the token for authentication
-      },
-      body: JSON.stringify(pledgeData),
-    })
+  // Fetch all active projects from the API when the page loads
+  useEffect(() => {
+    fetch("https://beanefactor-97bb03940ca5.herokuapp.com/projects/")
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to pledge treats");
+          throw new Error("Failed to fetch projects");
         }
         return response.json();
       })
-      .then((data) => {
-        alert("Pledge successful!");
-        // Optionally, refresh project data or update UI here
-      })
+      .then((data) => setProjects(data))
       .catch((error) => {
+        console.error("Error fetching projects:", error);
         setError(error.message);
       });
+  }, []);
+
+  // Navigate to project details page
+  const handleProjectClick = (id) => {
+    navigate(`/project/${id}`);
   };
 
   return (
-    <div>
-      <h1>Project Details</h1>
-      {/* Project details section */}
-      {/* ... */}
+    <div className="project-list">
+      <h1>Projects</h1>
+      {error && <p className="error">{error}</p>}
 
-      {/* Pledge Form */}
-      <h2>Pledge Treats</h2>
-      <form onSubmit={handlePledgeSubmit}>
-        <div>
-          <label htmlFor="treatAmount">Treat Amount:</label>
-          <input
-            type="number"
-            id="treatAmount"
-            min="1"
-            value={pledgeAmount}
-            onChange={(e) => setPledgeAmount(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="comment">Comment (optional):</label>
-          <textarea
-            id="comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={anonymous}
-              onChange={(e) => setAnonymous(e.target.checked)}
-            />
-            Stay Anonymous
-          </label>
-        </div>
-
-        {error && <p className="error">{error}</p>}
-
-        <button type="submit">Pledge</button>
-      </form>
+      {/* List of projects */}
+      <div className="projects-grid">
+        {projects.length > 0 ? (
+          projects.map((project) => (
+            <div
+              key={project.id}
+              className="project-card"
+              onClick={() => handleProjectClick(project.id)}
+            >
+              {project.image && (
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="project-image"
+                />
+              )}
+              <h2>{project.title}</h2>
+              <p>
+                {project.treat_count} / {project.treat_target} treats pledged
+              </p>
+              <p className="categories">
+                Categories: {project.categories.join(", ")}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p>No active projects found.</p>
+        )}
+      </div>
     </div>
   );
 }

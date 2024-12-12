@@ -1,0 +1,127 @@
+/* CreateProjectForm.css */
+
+/* Style for the form container */
+form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto; /* Center the form on the page */
+}
+
+/* Label style */
+form label {
+  background-color: #eee272; /* Yellow background like the button */
+  color: #333; /* Dark text for contrast */
+  font-weight: bold; /* Bold font for emphasis */
+  padding: 5px 10px; /* Padding for space around the text */
+  border-radius: 5px; /* Rounded corners for a soft look */
+  display: inline-block; /* Make sure the background is confined to the label */
+  margin-bottom: 5px; /* Space between the label and input */
+}
+
+/* Input, textarea, and select fields styling */
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+/* Textarea specific styling */
+form textarea {
+  height: 150px; /* Provide a decent height for the description input */
+  resize: vertical; /* Let the user resize it vertically */
+}
+
+/* Button styling */
+form button {
+  background-color: #eee272;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+form button:hover {
+  background-color: #d9c85e;
+}
+
+/* Category container and individual category item styles */
+.categories-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 1rem;
+}
+
+/* Category item styling (each category box) */
+.category-item {
+  display: flex;
+  flex-direction: column; /* Stack the elements vertically */
+  align-items: flex-start;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for category items */
+.category-item:hover {
+  background-color: #f1f1f1;
+}
+
+/* Category title and checkbox styling */
+.category-title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #eee272; /* Yellow background for the title */
+  color: white;
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.category-title input {
+  margin-right: 10px; /* Space between the checkbox and category title */
+}
+
+/* Category description styling */
+.category-description {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Checkbox styling */
+.category-item input[type="checkbox"] {
+  accent-color: #eee272; /* Matches your button color */
+}
+
+/* Style for the file input (image upload) */
+form input[type="file"] {
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Custom style for the file input label to make it clear */
+form input[type="file"] + label {
+  display: block;
+  margin-top: 8px;
+  font-size: 1rem;
+  color: #333;
+}

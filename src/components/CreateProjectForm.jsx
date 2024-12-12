@@ -36,23 +36,54 @@ function CreateProjectForm() {
     const { id, value } = event.target;
     setProjectFormData((prevData) => ({
       ...prevData,
-      [id]: value,
+      [id]: value || "",
     }));
   };
 
   const handleCategoryChange = (event) => {
-    const { options } = event.target;
-    const selectedCategories = Array.from(options)
-      .filter((option) => option.selected)
-      .map((option) => option.value);
-    setProjectFormData((prevData) => ({
-      ...prevData,
-      categories: selectedCategories,
-    }));
+    const categoryId = event.target.value;
+    const isChecked = event.target.checked;
+
+    setProjectFormData((prevState) => {
+      let updatedCategories = [...prevState.categories];
+
+      if (isChecked) {
+        // Add category if checked
+        updatedCategories.push(categoryId);
+      } else {
+        // Remove category if unchecked
+        updatedCategories = updatedCategories.filter((id) => id !== categoryId);
+      }
+
+      return {
+        ...prevState,
+        categories: updatedCategories,
+      };
+    });
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProjectFormData((prevData) => ({
+          ...prevData,
+          image: reader.result, // Ensure this is always a string (Base64 or URL)
+        }));
+      };
+      reader.readAsDataURL(file); // Or another method if uploading to a server
+    } else {
+      setProjectFormData((prevData) => ({
+        ...prevData,
+        image: "", // Reset to an empty string if no file is selected
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(projectFormData);
 
     const projectData = {
       ...projectFormData,
@@ -60,7 +91,7 @@ function CreateProjectForm() {
     };
 
     if (projectFormData.image === "") {
-      delete projectData.image;
+      delete projectData.image; // Remove image if not provided
     }
 
     const result = projectSchema.safeParse(projectData);
@@ -119,29 +150,40 @@ function CreateProjectForm() {
         />
       </div>
       <div>
-        <label htmlFor="image">Image URL (optional):</label>
+        <label htmlFor="image">Image (optional):</label>
         <input
-          type="url"
+          type="file"
           id="image"
-          placeholder="Enter image URL"
-          value={projectFormData.image}
-          onChange={handleChange}
+          accept="image/*"
+          onChange={handleImageChange} // Handle file change
         />
+        {/* Display the uploaded image or a default image */}
+        {projectFormData.image && (
+          <img
+            src={projectFormData.image}
+            alt="Preview"
+            style={{ width: "100px", height: "100px", objectFit: "cover" }}
+          />
+        )}
       </div>
       <div>
         <label htmlFor="categories">Categories:</label>
-        <select
-          id="categories"
-          multiple
-          value={projectFormData.categories}
-          onChange={handleCategoryChange}
-        >
+        <div id="categories" className="categories-container">
           {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
+            <div key={category.id} className="category-item">
+              <input
+                type="checkbox"
+                id={`category-${category.id}`}
+                value={category.id}
+                checked={projectFormData.categories.includes(category.id)} // Check if the category is selected
+                onChange={handleCategoryChange} // Handle checkbox click
+              />
+              <label htmlFor={`category-${category.id}`}>{category.name}</label>
+              {/* Optionally, display category description */}
+              {category.description && <span>{category.description}</span>}
+            </div>
           ))}
-        </select>
+        </div>
       </div>
       <button type="submit">Create Project</button>
     </form>

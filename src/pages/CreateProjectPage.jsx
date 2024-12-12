@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth";
 import CreateProjectForm from "../components/CreateProjectForm"; // Import the CreateProjectForm
 import "../styles/createproject.css";
+import "../styles/createprojectform.css";
 
 function CreateProjectPage() {
   const { auth } = useAuth(); // Access the auth context to check if the user is logged in

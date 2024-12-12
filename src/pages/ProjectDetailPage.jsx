@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth.js"; // To check if user is logged in
 import postTreatPledge from "../api/post-treatpledge.js"; // Import the API function
+import "../styles/projectdetailpage.css";
 
 function ProjectDetailPage() {
   const { id } = useParams(); // Get 'id' from the URL
@@ -17,8 +18,6 @@ function ProjectDetailPage() {
   // Fetch project details when component mounts
   useEffect(() => {
     if (!id) return; // Prevent fetch if id is undefined
-
-    console.log("Fetching project details for id:", id); // Debugging log
 
     fetch(`${import.meta.env.VITE_API_URL}/projects/${id}/`)
       .then((response) => {
@@ -67,68 +66,82 @@ function ProjectDetailPage() {
       {project ? (
         <>
           <h1>{project.title}</h1>
+          {project.image && (
+            <div className="project-image">
+              <img
+                src={project.image}
+                alt={`Image of ${project.title}`}
+                className="project-image-content"
+              />
+            </div>
+          )}
           <p>{project.description}</p>
           <div>
             <strong>Treats Pledged: {project.treat_count}</strong> /{" "}
             {project.treat_target}
           </div>
 
-          <div className="progress-bar">
-            <div
-              className="progress"
-              style={{
-                width: `${Math.min(
+          <section className="progress-section">
+            <div className="progress-bar">
+              <div
+                className="progress"
+                style={{
+                  width: `${Math.min(
+                    (project.treat_count / project.treat_target) * 100,
+                    100
+                  )}%`,
+                }}
+              >
+                {`${Math.min(
                   (project.treat_count / project.treat_target) * 100,
                   100
-                )}%`,
-              }}
-            >
-              {`${Math.min(
-                (project.treat_count / project.treat_target) * 100,
-                100
-              ).toFixed(1)}%`}
+                ).toFixed(1)}%`}
+              </div>
             </div>
-          </div>
+          </section>
 
           {/* Pledge Form */}
-          <h2>Pledge Treats</h2>
-          <form onSubmit={handlePledgeSubmit}>
-            <div>
-              <label htmlFor="treatAmount">Treat Amount:</label>
-              <input
-                type="number"
-                id="treatAmount"
-                min="1"
-                value={pledgeAmount}
-                onChange={(e) => setPledgeAmount(e.target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="comment">Comment (optional):</label>
-              <textarea
-                id="comment"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label>
+          <section className="pledge-section">
+            <h2>Sacrifice Your Treats!</h2>
+            <form onSubmit={handlePledgeSubmit} className="pledge-form">
+              <div className="form-group">
+                <label htmlFor="treatAmount">Treat Amount:</label>
                 <input
-                  type="checkbox"
-                  checked={anonymous}
-                  onChange={(e) => setAnonymous(e.target.checked)}
+                  type="number"
+                  id="treatAmount"
+                  min="1"
+                  value={pledgeAmount}
+                  onChange={(e) => setPledgeAmount(e.target.value)}
+                  required
                 />
-                Stay Anonymous
-              </label>
-            </div>
+              </div>
 
-            {error && <p className="error">{error}</p>}
+              <div className="form-group">
+                <label htmlFor="comment">Comment (optional):</label>
+                <textarea
+                  id="comment"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="Leave a comment about your pledge..."
+                />
+              </div>
 
-            <button type="submit">Pledge</button>
-          </form>
+              <div className="form-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={anonymous}
+                    onChange={(e) => setAnonymous(e.target.checked)}
+                  />
+                  Stay Anonymous
+                </label>
+              </div>
+
+              {error && <p className="error">{error}</p>}
+
+              <button type="submit">Pledge Treats</button>
+            </form>
+          </section>
         </>
       ) : (
         <p>Loading project details...</p>
