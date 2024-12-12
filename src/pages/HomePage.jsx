@@ -37,7 +37,10 @@ function HomePage() {
 
   return (
     <div>
-      <h1>Welcome to Beanefactor</h1>
+      <header>
+        <h1>Welcome to Beanefactor!</h1>
+        <p>Support projects that make a difference in the world of dogs.</p>
+      </header>
       <div id="project-list">
         {projects.map((projectData, key) => (
           <Link key={key} to={`/project/${projectData.id}`}>
