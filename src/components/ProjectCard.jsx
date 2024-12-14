@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "../styles/projectcard.css";
 
 function ProjectCard({ projectData }) {
@@ -10,6 +10,7 @@ function ProjectCard({ projectData }) {
     100
   );
   const validPercentage = isNaN(percentage) ? 0 : percentage; // Handle NaN cases
+  console.log(projectData);
 
   return (
     <div className="project-card">

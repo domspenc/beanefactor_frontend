@@ -1,7 +1,7 @@
-// src/pages/HomePage.jsx
 import useProjects from "../hooks/use-projects"; // Custom hook for fetching projects
 import { Link } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
+import "../styles/homepage.css";
 
 function HomePage() {
   const { projects, isLoading, error } = useProjects(); // Use the custom hook
@@ -19,15 +19,18 @@ function HomePage() {
   return (
     <div>
       <header>
-        <h1>Welcome to Beanefactor!</h1>
-        <p>Support projects that make a difference in the world of dogs.</p>
+        <h1>WELCOME TO BEANEFACTOR</h1>
+        <p id="header-description">
+          Support projects that make a difference in the world of dogs.
+        </p>
       </header>
       <div id="about-section">
         <p>
-          This is a crowdfunding platform where dogs can support creative
-          projects that aim to make the world a better place for other dogs.
-          Each project has a treat target, and you can pledge treats to show
-          your support. Help us make a difference, one treat at a time!
+          Where treats aren’t just snacks—they’re a way to make a real
+          difference! Join a community of dog lovers and help fund life-changing
+          projects for pups worldwide. From shelters to therapy dogs, every
+          treat you pledge helps bring pawsitive change. Let’s make the world a
+          better place, one wag at a time! 🦴💛
         </p>
       </div>
       <div id="project-list">
@@ -40,7 +43,6 @@ function HomePage() {
       </div>
       <div id="create-project-button">
         <Link to="/projects/create">
-          {/* Use Link to navigate to create project page */}
           <button>Create a Project!</button>
         </Link>
       </div>

@@ -167,7 +167,7 @@ function CreateProjectForm() {
         )}
       </div>
       <div>
-        <label htmlFor="categories">Categories:</label>
+        <label htmlFor="categories">Categories (ew, cats!):</label>
         <div id="categories" className="categories-container">
           {categories.map((category) => (
             <div key={category.id} className="category-item">

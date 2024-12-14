@@ -1,36 +1,96 @@
-/* About Page Styles */
+/* General Styles */
 .about-page {
-  text-align: center;
-  padding: 2rem;
-  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  line-height: 1.6;
+  background-color: #f9f9f9;
 }
 
 .about-page h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
   color: #333;
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .about-page p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #555;
+  margin-bottom: 30px;
+  text-align: justify;
+}
+
+.about-page p span {
+  font-style: italic;
+  color: #6c6c6c;
+}
+
+/* Image Styles */
+.about-image {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .about-image img {
   max-width: 100%;
+  height: auto;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile-first */
-@media (min-width: 768px) {
+/* Mobile First - Small Devices */
+@media (max-width: 600px) {
   .about-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+    padding: 15px;
   }
-  .about-image {
-    margin-left: 20px;
+
+  .about-page h1 {
+    font-size: 2rem;
+  }
+
+  .about-page p {
+    font-size: 1rem;
+  }
+
+  .about-image img {
+    max-width: 90%;
+  }
+}
+
+/* Tablets and Small Screens */
+@media (min-width: 601px) and (max-width: 768px) {
+  .about-page h1 {
+    font-size: 2.2rem;
+  }
+
+  .about-page p {
+    font-size: 1.1rem;
+  }
+
+  .about-image img {
+    max-width: 80%;
+  }
+}
+
+/* Desktop - Larger Screens */
+@media (min-width: 769px) {
+  .about-page {
+    padding: 30px;
+  }
+
+  .about-page h1 {
+    font-size: 2.5rem;
+  }
+
+  .about-page p {
+    font-size: 1.2rem;
+  }
+
+  .about-image img {
+    max-width: 60%;
   }
 }

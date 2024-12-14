@@ -10,6 +10,7 @@ import SignupPage from "./pages/SignupPage.jsx";
 import ProjectPage from "./pages/ProjectPage.jsx";
 import ProjectDetailPage from "./pages/ProjectDetailPage.jsx";
 import CreateProjectPage from "./pages/CreateProjectPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 
 import NavBar from "./components/NavBar.jsx";
 import { AuthProvider } from "./components/AuthProvider.jsx";
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/project/:id" element={<ProjectDetailPage />} />
           <Route path="/projects/create" element={<CreateProjectPage />} />
           <Route path="/treatpledges" element={<ProjectDetailPage />} />
+          <Route path="/dogusers" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

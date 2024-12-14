@@ -13,6 +13,7 @@ function ProjectDetailPage() {
   const [pledgeAmount, setPledgeAmount] = useState(0);
   const [comment, setComment] = useState("");
   const [anonymous, setAnonymous] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
 
   // Fetch project details when component mounts
@@ -50,10 +51,11 @@ function ProjectDetailPage() {
 
     try {
       await postTreatPledge(pledgeData, auth.token); // Use the API function
-      alert("Pledge successful!");
+      setSuccessMessage("Pledge successful!"); // Set the success message
       setPledgeAmount(0); // Reset form fields
       setComment("");
       setAnonymous(false);
+      setError(null); // Reset error message, if any
       // Optionally, refresh project data or update the UI here
     } catch (error) {
       setError(error.message);
@@ -62,26 +64,30 @@ function ProjectDetailPage() {
   };
 
   return (
-    <div>
+    <div className="project-detail-container">
       {project ? (
         <>
-          <h1>{project.title}</h1>
-          {project.image && (
-            <div className="project-image">
-              <img
-                src={project.image}
-                alt={`Image of ${project.title}`}
-                className="project-image-content"
-              />
+          {/* Project Info Section */}
+          <section className="project-info">
+            <h1>{project.title}</h1>
+            {project.image && (
+              <div className="project-image">
+                <img
+                  src={project.image}
+                  alt={`Image of ${project.title}`}
+                  className="project-image-content"
+                />
+              </div>
+            )}
+            <p>{project.description}</p>
+            <div>
+              <strong>Treats Pledged: {project.treat_count}</strong> /{" "}
+              {project.treat_target}
             </div>
-          )}
-          <p>{project.description}</p>
-          <div>
-            <strong>Treats Pledged: {project.treat_count}</strong> /{" "}
-            {project.treat_target}
-          </div>
+          </section>
 
-          <section className="progress-section">
+          {/* Progress Bar Section */}
+          <section className="project-progress">
             <div className="progress-bar">
               <div
                 className="progress"
@@ -100,11 +106,18 @@ function ProjectDetailPage() {
             </div>
           </section>
 
-          {/* Pledge Form */}
-          <section className="pledge-section">
-            <h2>Sacrifice Your Treats!</h2>
-            <form onSubmit={handlePledgeSubmit} className="pledge-form">
-              <div className="form-group">
+          {/* Pledge Form Section */}
+          <section className="pledge-form">
+            <h2>Pledge Treats</h2>
+
+            {/* Display success message */}
+            {successMessage && <p className="success">{successMessage}</p>}
+
+            {/* Display error message */}
+            {error && <p className="error">{error}</p>}
+
+            <form onSubmit={handlePledgeSubmit}>
+              <div>
                 <label htmlFor="treatAmount">Treat Amount:</label>
                 <input
                   type="number"
@@ -116,17 +129,16 @@ function ProjectDetailPage() {
                 />
               </div>
 
-              <div className="form-group">
+              <div>
                 <label htmlFor="comment">Comment (optional):</label>
                 <textarea
                   id="comment"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  placeholder="Leave a comment about your pledge..."
                 />
               </div>
 
-              <div className="form-group">
+              <div>
                 <label>
                   <input
                     type="checkbox"
@@ -139,7 +151,7 @@ function ProjectDetailPage() {
 
               {error && <p className="error">{error}</p>}
 
-              <button type="submit">Pledge Treats</button>
+              <button type="submit">Pledge</button>
             </form>
           </section>
         </>

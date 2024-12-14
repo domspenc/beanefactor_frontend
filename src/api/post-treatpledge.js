@@ -1,8 +1,6 @@
 async function postTreatPledge(pledgeData, token) {
   const url = `${import.meta.env.VITE_API_URL}/treatpledges/`;
 
-  console.log("Auth Token being used:", token);
-
   const response = await fetch(url, {
     method: "POST",
     headers: {
