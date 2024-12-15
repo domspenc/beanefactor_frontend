@@ -33,7 +33,7 @@
 
 // src/api/get-projects.js
 async function getProjects() {
-  const url = `${import.meta.env.VITE_API_URL}/projects`;
+  const url = `${import.meta.env.VITE_API_URL}/projects/`;
 
   const response = await fetch(url, { method: "GET" });
 

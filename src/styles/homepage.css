@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Corben:wght@400;700&family=Mogra&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif; /* Ensuring the same font family */
   line-height: 1.6;
   margin: 0;
   padding: 0;
@@ -28,7 +28,6 @@ header h1 {
   position: absolute;
   font-size: 3rem;
   color: #eee272;
-  font-outline: 1px solid #333;
   top: 20px;
   left: 20px;
   right: 20px;
@@ -54,7 +53,11 @@ header p {
 
 #about-section {
   padding: 45px;
-  text-align: justify;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 30px;
+  text-align: center;
+  line-height: 2;
 }
 
 /* Project List */

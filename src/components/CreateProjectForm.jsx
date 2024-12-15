@@ -64,22 +64,11 @@ function CreateProjectForm() {
 
   // HANDLE IMAGE CHANGE
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
+    const url = event.target.value; // Get the URL from the input field
     setProjectFormData((prevData) => ({
       ...prevData,
-      image: file, // Save the file object instead of base64
+      image: url, // Store the URL in the state
     }));
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProjectFormData((prevData) => ({
-          ...prevData,
-          previewImage: reader.result, // Use a separate field for previewing
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   // HANDLE SUBMIT
@@ -115,7 +104,7 @@ function CreateProjectForm() {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Token ${token}`,
           },
           body: projectData, // Use FormData instead of JSON
         }
@@ -165,17 +154,17 @@ function CreateProjectForm() {
         />
       </div>
       <div>
-        <label htmlFor="image">Image (optional):</label>
+        <label htmlFor="image">Image URL (optional):</label>
         <input
-          type="file"
+          type="url" // This accepts image URLs
           id="image"
-          accept="image/*"
-          onChange={handleImageChange} // Handle file change
+          value={projectFormData.image} // Bind the value to your state
+          onChange={handleImageChange} // Handle URL change
         />
         {/* Display the uploaded image or a default image */}
-        {projectFormData.previewImage && (
+        {projectFormData.image && (
           <img
-            src={projectFormData.previewImage} // Use previewImage here
+            src={projectFormData.image} // Display the URL as an image
             alt="Preview"
             style={{
               width: "100px",
