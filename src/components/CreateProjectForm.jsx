@@ -62,45 +62,45 @@ function CreateProjectForm() {
     });
   };
 
+  // HANDLE IMAGE CHANGE
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    setProjectFormData((prevData) => ({
+      ...prevData,
+      image: file, // Save the file object instead of base64
+    }));
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setProjectFormData((prevData) => ({
           ...prevData,
-          image: reader.result, // Ensure this is always a string (Base64 or URL)
+          previewImage: reader.result, // Use a separate field for previewing
         }));
       };
-      reader.readAsDataURL(file); // Or another method if uploading to a server
-    } else {
-      setProjectFormData((prevData) => ({
-        ...prevData,
-        image: "", // Reset to an empty string if no file is selected
-      }));
+      reader.readAsDataURL(file);
     }
   };
 
+  // HANDLE SUBMIT
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(projectFormData);
 
-    const projectData = {
-      ...projectFormData,
-      treat_target: parseInt(projectFormData.treat_target, 10),
-    };
+    const projectData = new FormData();
+    projectData.append("title", projectFormData.title);
+    projectData.append("description", projectFormData.description);
+    projectData.append("treat_target", projectFormData.treat_target);
 
-    if (projectFormData.image === "") {
-      delete projectData.image; // Remove image if not provided
+    // If there's an image, append it as a file
+    if (projectFormData.image) {
+      projectData.append("image", projectFormData.image);
     }
 
-    const result = projectSchema.safeParse(projectData);
-
-    if (!result.success) {
-      const error = result.error.errors?.[0];
-      alert(error.message); // Show error to user
-      return; // Stop the form submission
-    }
+    // If categories are selected, append them to the FormData
+    projectFormData.categories.forEach((categoryId) => {
+      projectData.append("categories", categoryId);
+    });
 
     const token = window.localStorage.getItem("token");
     if (!token) {
@@ -110,9 +110,24 @@ function CreateProjectForm() {
     }
 
     try {
-      await postProject(result.data, token);
-      alert("Project created successfully!");
-      navigate("/"); // Redirect to home page
+      const response = await fetch(
+        "https://beanefactor-97bb03940ca5.herokuapp.com/projects/create/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: projectData, // Use FormData instead of JSON
+        }
+      );
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Project created successfully!");
+        navigate("/"); // Redirect to home page
+      } else {
+        alert(result.message || "Error creating project");
+      }
     } catch (error) {
       alert(error.message); // Handle project creation errors
     }
@@ -158,11 +173,16 @@ function CreateProjectForm() {
           onChange={handleImageChange} // Handle file change
         />
         {/* Display the uploaded image or a default image */}
-        {projectFormData.image && (
+        {projectFormData.previewImage && (
           <img
-            src={projectFormData.image}
+            src={projectFormData.previewImage} // Use previewImage here
             alt="Preview"
-            style={{ width: "100px", height: "100px", objectFit: "cover" }}
+            style={{
+              width: "100px",
+              height: "100px",
+              objectFit: "cover",
+              marginTop: "10px",
+            }}
           />
         )}
       </div>

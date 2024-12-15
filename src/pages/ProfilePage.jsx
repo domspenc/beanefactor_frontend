@@ -4,36 +4,30 @@ import useAuth from "../hooks/use-auth.js"; // Custom hook for authentication
 
 function ProfilePage() {
   const { auth } = useAuth(); // Get authentication details
-  const [user, setUser] = useState(null);
+  const [dogUser, setDogUser] = useState(null);
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!auth.token) {
-      navigate("/login"); // Redirect to login if not authenticated
+      navigate("/login");
       return;
     }
 
-    // Safely check if auth.user exists
-    if (!auth.user) {
-      setError("User data is not available.");
-      return;
-    }
-
-    // Fetch user data using auth.user.id
-    fetch(`${import.meta.env.VITE_API_URL}/dogusers/${auth.user.id}`, {
+    // Fetch dogUser data
+    fetch(`${import.meta.env.VITE_API_URL}/dogusers/${auth.dogUser.id}/`, {
       headers: {
         Authorization: `Token ${auth.token}`,
       },
     })
       .then((response) => response.json())
-      .then((data) => setUser(data))
+      .then((data) => setDogUser(data))
       .catch((error) => setError("Failed to load user information"));
 
-    // Fetch user's created projects
+    // Fetch the dog's projects
     fetch(
-      `${import.meta.env.VITE_API_URL}/dogusers/${auth.user.id}/projects/`, // Updated to correct endpoint
+      `${import.meta.env.VITE_API_URL}/dogusers/${auth.dogUser.id}/projects/`,
       {
         headers: {
           Authorization: `Token ${auth.token}`,
@@ -43,7 +37,7 @@ function ProfilePage() {
       .then((response) => response.json())
       .then((data) => setProjects(data))
       .catch((error) => setError("Failed to load projects"));
-  }, [auth.token, auth.user, navigate]);
+  }, [auth.token, auth.dogUser.id, navigate]);
 
   const handleDeleteProject = (projectId) => {
     if (window.confirm("Are you sure you want to delete this project?")) {
@@ -66,9 +60,9 @@ function ProfilePage() {
   return (
     <div>
       <h1>User Profile</h1>
-      {user ? (
+      {dogUser ? (
         <>
-          <p>Welcome, {user.username}!</p>
+          <p>Welcome, {dogUser.username}!</p>
           <h2>Your Projects</h2>
           {projects.length === 0 ? (
             <p>You have no projects yet.</p>

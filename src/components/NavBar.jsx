@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth.js";
-import logo from "../../public/beanefactor.png";
+import logo from "../beanefactor.png";
 
 function NavBar() {
   const { auth, setAuth } = useAuth();

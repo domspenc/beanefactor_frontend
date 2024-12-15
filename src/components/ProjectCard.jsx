@@ -4,6 +4,8 @@ import "../styles/projectcard.css";
 function ProjectCard({ projectData }) {
   const projectLink = `/project/${projectData.id}`;
 
+  console.log("Image URL:", projectData.image);
+
   // Calculate progress
   const percentage = Math.min(
     (projectData.treat_count / projectData.treat_target) * 100,
