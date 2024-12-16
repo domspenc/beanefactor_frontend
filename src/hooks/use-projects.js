@@ -14,7 +14,7 @@ export default function useProjects() {
           (a, b) => b.treat_count - a.treat_count
         );
         // Slice the first 6 projects
-        setProjects(sortedProjects.slice(0, 6));
+        setProjects(sortedProjects.slice(0, 8));
         setIsLoading(false);
       })
       .catch((error) => {

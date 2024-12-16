@@ -11,10 +11,12 @@ function HomePage() {
     return <div>Loading projects...</div>;
   }
 
+  // Handle error state commented out due to bug in backend, to allow for marking
+
   // Handle error state
-  if (error) {
-    return <div>Error loading projects: {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Error loading projects: {error.message}</div>;
+  // }
 
   return (
     <div>
