@@ -5,6 +5,9 @@ function AboutPage() {
   return (
     <div className="about-page">
       <h1>🦴🦴🦴</h1>
+      <div className="about-image">
+        <img src="./bean.png" alt="About Beanefactor" />
+      </div>
       <p>
         Meet <strong>Bean</strong>, an Italian Greyhound with a heart as big as
         her inherited fortune (and trust us, that’s saying something!). When
@@ -56,9 +59,7 @@ function AboutPage() {
         believe that together, we can inspire <strong>pawsitive change</strong>,
         one paw at a time.
       </p>
-      <div className="about-image">
-        <img src="./bean.png" alt="About Beanefactor" />
-      </div>
+      <h1>🦴🦴🦴</h1>
     </div>
   );
 }
