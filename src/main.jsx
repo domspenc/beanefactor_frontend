@@ -19,17 +19,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <BrowserRouter>
-        <NavBar /> {/* Navigation Bar is always shown */}
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/projects" element={<ProjectPage />} />
-          <Route path="/project/:id" element={<ProjectDetailPage />} />
-          <Route path="/projects/create" element={<CreateProjectPage />} />
-          <Route path="/treatpledges" element={<ProjectDetailPage />} />
-          <Route path="/dogusers" element={<ProfilePage />} />
+          {/* Wrap with NavBar layout */}
+          <Route path="/" element={<NavBar />}>
+            <Route index element={<HomePage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="signup" element={<SignupPage />} />
+            <Route path="projects" element={<ProjectPage />} />
+            <Route path="project/:id" element={<ProjectDetailPage />} />
+            <Route path="projects/create" element={<CreateProjectPage />} />
+            <Route path="dogusers" element={<ProfilePage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

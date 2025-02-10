@@ -1,22 +1,21 @@
 import useProjects from "../hooks/use-projects"; // Custom hook for fetching projects
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
 import "../styles/homepage.css";
 
 function HomePage() {
   const { projects, isLoading, error } = useProjects(); // Use the custom hook
+  const [menuActive, setMenuActive] = useState(false);
+
+  const handleMenuToggle = () => {
+    setMenuActive((prevState) => !prevState); // Toggles the state between true/false
+  };
 
   // Handle loading state
   if (isLoading) {
     return <div>Loading projects...</div>;
   }
-
-  // Handle error state commented out due to bug in backend, to allow for marking
-
-  // Handle error state
-  // if (error) {
-  //   return <div>Error loading projects: {error.message}</div>;
-  // }
 
   return (
     <div>

@@ -86,7 +86,7 @@ header h1 {
 
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 5px 4px 10px #eee272;
+  box-shadow: 0px 4px 20px #eee272; /* Only change the box-shadow on hover */
 }
 
 .project-card img {
@@ -98,6 +98,7 @@ header h1 {
 }
 
 .project-card h3 {
+  font-family: Mogra;
   font-size: 1.3rem;
   color: #333;
 }
@@ -243,5 +244,81 @@ footer {
   #create-project-button button {
     padding: 10px 20px;
     font-size: 1rem;
+  }
+}
+
+/* General Navbar Styles */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #eee272; /* Light yellow background for navbar */
+  color: #333;
+}
+
+nav .logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Ensures logo stays on the left */
+}
+
+nav .logo {
+  height: 50px;
+}
+
+nav .nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+nav .nav-links a {
+  color: #333; /* Dark text color for links */
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+nav .nav-links a:hover {
+  color: #333; /* Lighter color for hover effect */
+}
+
+nav .hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+nav .hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background-color: #333; /* Dark color for hamburger bars */
+  border-radius: 3px;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  nav .nav-links {
+    display: none; /* Hide links by default */
+    flex-direction: column;
+    gap: 10px;
+    background-color: #eee272; /* Light background for mobile menu */
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  /* Show the links when the 'active' class is added */
+  nav .nav-links.active {
+    display: flex; /* Show links when active */
+  }
+
+  nav .hamburger {
+    display: flex;
   }
 }

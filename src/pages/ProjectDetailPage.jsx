@@ -12,7 +12,7 @@ function ProjectDetailPage() {
   const [project, setProject] = useState(null); // State to store project details
   const [comment, setComment] = useState("");
   const [pledgeAmount, setPledgeAmount] = useState(0);
-  const [projectPledgeAmount, setprojectPledgeAmount] = useState(0);
+  const [projectPledgeAmount, setProjectPledgeAmount] = useState(0);
   const [anonymous, setAnonymous] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -98,6 +98,17 @@ function ProjectDetailPage() {
             </div>
           </section>
 
+          {/* Categories Section */}
+          {/* <section className="project-categories">
+            <h3>Categories:</h3>
+            <ul>
+              {project.categories &&
+                project.categories.map((category) => (
+                  <li key={category.id}>{category.name}</li>
+                ))}
+            </ul>
+          </section> */}
+
           {/* Progress Bar Section */}
           <section className="project-progress">
             <div className="progress-bar">
@@ -132,7 +143,7 @@ function ProjectDetailPage() {
 
             <form onSubmit={handlePledgeSubmit}>
               <div>
-                <label htmlFor="treatAmount">Treat Amount:</label>
+                <label htmlFor="treatAmount">Treats to Pledge:</label>
                 <input
                   type="number"
                   id="treatAmount"
@@ -144,7 +155,7 @@ function ProjectDetailPage() {
               </div>
 
               <div>
-                <label htmlFor="comment">Comment (optional):</label>
+                <label htmlFor="comment">Comment:</label>
                 <textarea
                   id="comment"
                   value={comment}
