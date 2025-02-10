@@ -10,8 +10,9 @@ function ProjectDetailPage() {
   const navigate = useNavigate();
 
   const [project, setProject] = useState(null); // State to store project details
-  const [pledgeAmount, setPledgeAmount] = useState(0);
   const [comment, setComment] = useState("");
+  const [pledgeAmount, setPledgeAmount] = useState(0);
+  const [projectPledgeAmount, setprojectPledgeAmount] = useState(0);
   const [anonymous, setAnonymous] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -33,7 +34,6 @@ function ProjectDetailPage() {
       });
   }, [id]);
 
-  // Handle pledge submission
   const handlePledgeSubmit = async (event) => {
     event.preventDefault();
 
@@ -46,17 +46,29 @@ function ProjectDetailPage() {
       treats_pledged: pledgeAmount,
       comment: comment,
       anonymous: anonymous,
-      project: id, // Using 'id' for the project field
+      project: id,
     };
 
     try {
       await postTreatPledge(pledgeData, auth.token); // Use the API function
-      setSuccessMessage("Pledge successful!"); // Set the success message
-      setPledgeAmount(0); // Reset form fields
+      setSuccessMessage("Pledge successful!");
+
+      // Update the project pledge count correctly
+      setProject((prevProject) => {
+        const updatedTreatCount =
+          prevProject.treat_count + Number(pledgeAmount); // Ensure it's a sum of numbers
+        console.log("Updated Treat Count:", updatedTreatCount); // Debugging line
+        return {
+          ...prevProject,
+          treat_count: updatedTreatCount, // Updating the state correctly
+        };
+      });
+
+      // Reset form fields
+      setPledgeAmount(0);
       setComment("");
       setAnonymous(false);
-      setError(null); // Reset error message, if any
-      // Optionally, refresh project data or update the UI here
+      setError(null);
     } catch (error) {
       setError(error.message);
       console.error("Error submitting treat pledge:", error.message);
@@ -80,7 +92,7 @@ function ProjectDetailPage() {
               </div>
             )}
             <p>{project.description}</p>
-            <div>
+            <div className="progress-bar-text">
               <strong>Treats Pledged: {project.treat_count}</strong> /{" "}
               {project.treat_target}
             </div>
@@ -105,6 +117,8 @@ function ProjectDetailPage() {
               </div>
             </div>
           </section>
+
+          <h1>🦴🦴🦴</h1>
 
           {/* Pledge Form Section */}
           <section className="pledge-form">

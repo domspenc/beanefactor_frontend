@@ -20,6 +20,10 @@ function HomePage() {
 
   return (
     <div>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      ></link>
       <header>
         <h1>WELCOME TO BEANEFACTOR</h1>
         <p id="header-description">
@@ -47,6 +51,23 @@ function HomePage() {
         <Link to="/projects/create">
           <button>Create a Project!</button>
         </Link>
+        <h1 className="bones-footer">🦴🦴🦴</h1>
+        <footer>
+          <div class="footer-container">
+            <p>© 2025 Dominique Spencer. All rights reserved.</p>
+            <div class="social-icons">
+              <a href="https://github.com/domspenc" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+              <a
+                href="https://linkedin.com/in/dominiquespencer"
+                target="_blank"
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
