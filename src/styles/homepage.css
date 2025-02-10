@@ -54,12 +54,12 @@ header h1 {
 
 /* /* ABOUT SECTION */
 #about-section {
-  padding: 40px 20px;
+  padding: 60px 30px;
   font-size: 18px;
   color: #555;
   text-align: center;
   line-height: 1.8;
-  max-width: 800px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 

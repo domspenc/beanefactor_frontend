@@ -32,10 +32,18 @@ function HomePage() {
       <div id="about-section">
         <p>
           Where treats aren’t just snacks—they’re a way to make a real
-          difference! Join a community of dog lovers and help fund life-changing
+          <br />
+          difference!
+          <br />
+          <br />
+          Join a community of dog lovers and help fund life-changing
+          <br />
           projects for pups worldwide. From shelters to therapy dogs, every
-          treat you pledge helps bring pawsitive change. Let’s make the world a
-          better place, one wag at a time! 🦴💛
+          <br />
+          treat you pledge helps bring pawsitive change.
+          <br />
+          <br />
+          Let’s make the world a better place, one wag at a time! 🦴💛
         </p>
       </div>
       <div id="project-list">
