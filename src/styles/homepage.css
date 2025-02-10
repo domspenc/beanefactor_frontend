@@ -16,7 +16,7 @@ body {
 header {
   font-family: Mogra;
   position: relative;
-  background-image: url("./dogs-on-beach.jpeg");
+  background-image: url("/public/dogs-on-beach.jpeg");
   background-size: cover;
   background-position: center;
   height: 70vh;
